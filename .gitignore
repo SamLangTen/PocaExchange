@@ -1,5 +1,6 @@
 # Visual Studio Ignorance
 PocaExchange/.vs
+.vs
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

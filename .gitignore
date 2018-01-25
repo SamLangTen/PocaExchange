@@ -3,3 +3,7 @@
 
 #Python Cache
 /PocaExchange/PocaExchange/__pycache__
+*.pyc
+
+#Django Migrations Cache
+/PocaExchange/pocae/migrations

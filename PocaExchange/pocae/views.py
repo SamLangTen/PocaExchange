@@ -4,7 +4,7 @@ from rest_framework.renderers import JSONRenderer
 from rest_framework.parsers import JSONParser
 from pocae.models import PostcardPair
 from pocae.serializers import PostcardPairSerializer
-import json
+
 # Create your views here.
 
 
@@ -17,7 +17,8 @@ def pcpair_list(request):
 
     elif request.method == 'POST':
         #data = JSONParser.parse(request.body)
-        data = json.loads(request.body)
+        data = JSONParser().parse(request)
+        #data = json.loads(request.body)
         #return HttpResponse(request.body())
         serializer = PostcardPairSerializer(data=data)
         if serializer.is_valid():

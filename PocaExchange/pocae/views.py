@@ -13,13 +13,13 @@ def pcpair_list(request):
     if request.method == 'GET':
         pairs = PostcardPair.objects.all()
         serializer = PostcardPairSerializer(pairs, many=True)
-        return JsonResponse(serializer.data, safe=False)
+        return JsonResponse(serializer.data, safe=False, status=200)
 
     elif request.method == 'POST':
         #data = JSONParser.parse(request.body)
         data = JSONParser().parse(request)
         #data = json.loads(request.body)
-        #return HttpResponse(request.body())
+        # return HttpResponse(request.body())
         serializer = PostcardPairSerializer(data=data)
         if serializer.is_valid():
             serializer.save()

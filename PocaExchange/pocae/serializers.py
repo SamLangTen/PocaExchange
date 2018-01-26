@@ -1,7 +1,7 @@
 from rest_framework import serializers
-from pocae.models import PostcardPair, STATE_CHOICES
+from pocae.models import *
 import uuid
-
+import datetime
 
 class PostcardPairSerializer(serializers.Serializer):
     pair_id = serializers.UUIDField(required=False)
@@ -13,6 +13,7 @@ class PostcardPairSerializer(serializers.Serializer):
 
     def create(self, validated_data):
         validated_data['pair_id'] = uuid.uuid4()
+        validated_data['create_date'] = datetime.datetime.now()
         return PostcardPair.objects.create(**validated_data)
 
     def update(self, instance, validated_data):

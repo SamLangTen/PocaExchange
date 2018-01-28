@@ -1,1 +1,1 @@
-from .postcard_pair_serializers import PostcardPairSerializer
+from .postcard_pair_serializer import PostcardPairSerializer

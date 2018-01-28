@@ -7,4 +7,4 @@ class User(models.Model):
     user_id = models.UUIDField(primary_key=True)
     user_name = models.CharField(max_length=100)
     password = models.TextField()
-    user_group = models.IntegerField(choices=USER_GROUP_TYPES,default=2)
+    user_group = models.IntegerField(choices=USER_GROUP_TYPES, default=2)

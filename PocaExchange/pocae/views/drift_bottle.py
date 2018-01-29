@@ -5,6 +5,7 @@ from rest_framework import status
 from pocae.models import *
 from pocae.serializers import *
 import uuid
+import datetime
 
 class DriftBottleList(APIView):
 
@@ -17,7 +18,7 @@ class DriftBottleList(APIView):
         serializer = DriftBottleSerializer(data=request.data)
         if serializer.is_valid():
             bottle = DriftBottle(bottle_id=uuid.uuid4())
-            bottle.request_name = User.objects.get(user_id=validated_data['request_name'])
+            bottle.request_name = User.objects.get(user_name=serializer.validated_data['request_name'])
             bottle.throw_time = datetime.datetime.now()
             bottle.save()
             return Response(status=status.HTTP_201_CREATED)

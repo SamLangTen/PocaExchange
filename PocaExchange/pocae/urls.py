@@ -1,6 +1,6 @@
 from django.conf.urls import url
-from . import views
+from pocae import views
 
 urlpatterns = [
-    url(r'pairs/$', views.pcpair_list)
+    url(r'user/$',views.UserList.as_view())
 ]

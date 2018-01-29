@@ -5,7 +5,7 @@ import datetime
 
 class DriftBottleSerializer(serializers.Serializer):
     bottle_id = serializers.UUIDField()
-    request_name = serializers.CharField(max_lenth=100,required=False)
+    request_name = serializers.CharField(max_length=100,required=False)
     throw_time = serializers.DateTimeField()
     postcard_pair_id = serializers.UUIDField(required=False)
 

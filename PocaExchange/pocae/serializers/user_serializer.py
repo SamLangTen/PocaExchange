@@ -5,8 +5,8 @@ import hashlib
 
 class UserCreationSerializer(serializers.Serializer):
     user_id = serializers.UUIDField(required=False)
-    user_name = serializers.CharField(max_lenth=100)
-    password = serializers.CharField(max_lenth=100)
+    user_name = serializers.CharField(max_length=100)
+    password = serializers.CharField(max_length=100)
     user_group = serializers.ChoiceField(choices=USER_GROUP_TYPES)
 
     def create(self, validated_data):
@@ -20,4 +20,9 @@ class UserCreationSerializer(serializers.Serializer):
         instance.password = hashlib.sha256().update(validated_data['password'].encode('utf-8').hexdigest())
         instance.save()
         return instance
+
+class UserSerializer(serializers.Serializer):
+    user_id = serializers.UUIDField(required=False)
+    user_name = serializers.CharField(max_length=100)
+    user_group = serializers.ChoiceField(choices=USER_GROUP_TYPES)
 

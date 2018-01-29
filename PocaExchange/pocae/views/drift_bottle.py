@@ -1,4 +1,5 @@
 from django.http import Http404
+from django.contrib.auth.models import *
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
@@ -18,7 +19,7 @@ class DriftBottleList(APIView):
         serializer = DriftBottleSerializer(data=request.data)
         if serializer.is_valid():
             bottle = DriftBottle(bottle_id=uuid.uuid4())
-            bottle.request_name = User.objects.get(user_name=serializer.validated_data['request_name'])
+            bottle.request_name = User.objects.get(username=serializer.validated_data['request_name'])
             bottle.throw_time = datetime.datetime.now()
             bottle.save()
             return Response(status=status.HTTP_201_CREATED)

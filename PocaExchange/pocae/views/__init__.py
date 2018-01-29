@@ -1,3 +1,3 @@
-from .user import UserList
+from .user import *
 from .drift_bottle import *
 from .postcard_pair import *

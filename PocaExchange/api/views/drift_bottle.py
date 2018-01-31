@@ -15,15 +15,17 @@ import datetime
 
 class DriftBottleList(APIView):
     authentication_classes = (SessionAuthentication, BasicAuthentication)
-    permission_classes = (IsAuthenticated,)
+    permission_classes = (IsAdminUser,)
 
     def get(self, request, format=None):
-        if request.user.is_staff:
-            bottles = DriftBottle.objects.all()
-            serializers = DriftBottleSerializer(bottles, many=True)
-            return Response(serializers.data, status=status.HTTP_200_OK)
-        else:
-            return Response(status=status.HTTP_403_FORBIDDEN)
+        bottles = DriftBottle.objects.all()
+        serializers = DriftBottleSerializer(bottles, many=True)
+        return Response(serializers.data, status=status.HTTP_200_OK)
+
+
+class DriftBottlePoolList(APIView):
+    authentication_classes = (SessionAuthentication, BasicAuthentication)
+    permission_classes = (IsAuthenticated,)
 
     def post(self, request, format=None):
         if not DriftBottle.objects.filter(request_name=request.user).exists():
@@ -34,7 +36,6 @@ class DriftBottleList(APIView):
             return Response(status=status.HTTP_201_CREATED)
         else:
             return Response(status=status.HTTP_404_NOT_FOUND)
-
 
 class DriftBottleDetail(APIView):
 

@@ -3,7 +3,7 @@ from rest_framework import status
 from django.urls import reverse
 from django.contrib.auth.models import User
 from django.contrib.auth import *
-
+from api.models import DriftBottle
 
 class DriftBottleAPITest(APITestCase):
 
@@ -24,9 +24,9 @@ class DriftBottleAPITest(APITestCase):
     def test_drift_bottle_throw(self):
         self._create_user()
         self._login()
-        response = self.client.post('/api/driftbottle/', format='json')
+        response = self.client.post('/api/driftbottle/pools/', format='json')
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
-        response = self.client.post('/api/driftbottle/', format='json')
+        response = self.client.post('/api/driftbottle/pools/', format='json')
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
 
     def test_drift_bottle_get(self):

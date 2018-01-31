@@ -1,7 +1,4 @@
 from rest_framework import serializers
-from pocae.models import *
-import uuid
-import datetime
 
 class DriftBottleSerializer(serializers.Serializer):
     bottle_id = serializers.UUIDField(required=False)

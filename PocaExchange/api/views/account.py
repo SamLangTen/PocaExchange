@@ -7,10 +7,11 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication
 from rest_framework import status
-from pocae.models import *
-from pocae.serializers import *
+from api.models import *
+from api.serializers import *
 
 class AccountLoginView(APIView):
+    
     permission_classes = (AllowAny,)
 
     def post(self, request, format=None):

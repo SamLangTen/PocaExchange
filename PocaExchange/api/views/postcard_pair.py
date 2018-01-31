@@ -2,8 +2,8 @@ from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.renderers import JSONRenderer
 from rest_framework.parsers import JSONParser
-from pocae.models import PostcardPair
-from pocae.serializers import PostcardPairSerializer
+from api.models import PostcardPair
+from api.serializers import PostcardPairSerializer
 
 # Create your views here.
 

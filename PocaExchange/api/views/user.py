@@ -3,8 +3,8 @@ from django.contrib.auth.models import *
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from pocae.models import *
-from pocae.serializers import *
+from api.models import *
+from api.serializers import *
 import uuid
 import hashlib
 

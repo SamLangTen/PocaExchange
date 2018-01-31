@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-from pocae.models import *
+from api.models import *
 
 
 class DriftBottle(models.Model):

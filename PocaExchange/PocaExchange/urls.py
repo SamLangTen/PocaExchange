@@ -17,6 +17,6 @@ from django.conf.urls import url,include
 from django.contrib import admin
 
 urlpatterns = [
-    url(r'^',include('pocae.urls')),
-    url(r'^api',include('pocae.urls'))
+    url(r'^',include('api.urls')),
+    url(r'^api',include('api.urls'))
 ]

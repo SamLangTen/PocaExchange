@@ -1,5 +1,5 @@
 from django.conf.urls import url
-from pocae import views
+from api import views
 
 urlpatterns = [
     url(r'user/$',views.UserList.as_view()),

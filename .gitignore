@@ -6,4 +6,4 @@
 *.pyc
 
 #Django Migrations Cache
-/PocaExchange/pocae/migrations
+/PocaExchange/api/migrations

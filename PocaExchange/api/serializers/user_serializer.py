@@ -1,7 +1,4 @@
 from rest_framework import serializers
-from pocae.models import *
-import uuid
-import hashlib
 
 class UserCreationSerializer(serializers.Serializer):
     username = serializers.CharField(max_length=100)

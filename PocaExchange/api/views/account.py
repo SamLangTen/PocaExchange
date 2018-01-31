@@ -10,8 +10,9 @@ from rest_framework import status
 from api.models import *
 from api.serializers import *
 
+
 class AccountLoginView(APIView):
-    
+
     permission_classes = (AllowAny,)
 
     def post(self, request, format=None):
@@ -32,3 +33,13 @@ class AccountLogoutView(APIView):
     def post(self, request, format=None):
         logout(request)
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+class AccountDetailView(APIView):
+    authentication_classes = (SessionAuthentication, BasicAuthentication)
+    permission_classes = (IsAuthenticated,)
+
+    def get(self, request, format=None):
+        user = request.user
+        serializer = AccountSerializer(user)
+        return Response(data=serializer.data,status=status.HTTP_200_OK)

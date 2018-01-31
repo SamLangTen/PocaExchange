@@ -28,7 +28,10 @@ class DriftBottlePoolList(APIView):
     permission_classes = (IsAuthenticated,)
 
     def post(self, request, format=None):
-        if not DriftBottle.objects.filter(request_name=request.user).exists():
+        bottles_own = DriftBottle.objects.filter(request_name=request.user)
+        bottles_accepted = bottles_own.exclude(postcard_pair=None)
+        bottles_unreceived = bottles_accepted.exclude(postcard_pair=PostcardPair.objects.filter(sender=request.user,state=3))
+        if (not bottles_own.exists()) or (bottles_unreceived.exists()):
             bottle = DriftBottle(bottle_id=uuid.uuid4())
             bottle.request_name = request.user
             bottle.throw_time = datetime.datetime.now()
@@ -36,6 +39,9 @@ class DriftBottlePoolList(APIView):
             return Response(status=status.HTTP_201_CREATED)
         else:
             return Response(status=status.HTTP_406_NOT_ACCEPTABLE)
+
+    
+        
 
 class DriftBottleDetail(APIView):
 

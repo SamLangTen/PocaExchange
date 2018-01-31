@@ -30,3 +30,11 @@ class AccountAPITest(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
         response = self.client.get('/api/account/', format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+    def test_account_logout(self):
+        self._create_user()
+        data = {'username': 'pocaetestuser', 'password': 'password'}
+        response = self.client.post('/api/account/login/', data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+        response = self.client.post('/api/account/logout/', format='json')
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)

@@ -1,6 +1,7 @@
 from django.http import Http404
 from django.contrib.auth.models import *
 from rest_framework import status
+
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
@@ -13,15 +14,18 @@ import datetime
 
 
 class DriftBottleList(APIView):
+    authentication_classes = (SessionAuthentication, BasicAuthentication)
+    permission_classes = (IsAuthenticated,)
 
-    @permission_classes((IsAdminUser, ))
     def get(self, request, format=None):
-        bottles = DriftBottle.objects.all()
-        serializers = DriftBottleSerializer(bottles, many=True)
-        return Response(serializers.data, status=status.HTTP_200_OK)
+        if request.user.is_staff:
+            bottles = DriftBottle.objects.all()
+            serializers = DriftBottleSerializer(bottles, many=True)
+            return Response(serializers.data, status=status.HTTP_200_OK)
+        else:
+            return Response(status=status.HTTP_403_FORBIDDEN)
 
-    @permission_classes((IsAuthenticated, ))
-    def post(self, request, format=None):       
+    def post(self, request, format=None):
         if not DriftBottle.objects.filter(request_name=request.user).exists():
             bottle = DriftBottle(bottle_id=uuid.uuid4())
             bottle.request_name = request.user

@@ -35,7 +35,7 @@ class DriftBottlePoolList(APIView):
             bottle.save()
             return Response(status=status.HTTP_201_CREATED)
         else:
-            return Response(status=status.HTTP_404_NOT_FOUND)
+            return Response(status=status.HTTP_406_NOT_ACCEPTABLE)
 
 class DriftBottleDetail(APIView):
 

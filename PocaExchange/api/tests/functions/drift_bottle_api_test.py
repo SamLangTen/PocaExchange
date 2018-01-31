@@ -27,7 +27,7 @@ class DriftBottleAPITest(APITestCase):
         response = self.client.post('/api/driftbottle/pools/', format='json')
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         response = self.client.post('/api/driftbottle/pools/', format='json')
-        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+        self.assertEqual(response.status_code, status.HTTP_406_NOT_ACCEPTABLE)
 
     def test_drift_bottle_get(self):
         self._create_user()

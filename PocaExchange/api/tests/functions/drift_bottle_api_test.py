@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import *
 from api.models import DriftBottle
 
+
 class DriftBottleAPITest(APITestCase):
 
     def _create_user(self):
@@ -59,13 +60,19 @@ class DriftBottleAPITest(APITestCase):
         response = self.client.put('/api/driftbottle/pools/', format='json')
         self.assertEqual(response.status_code, status.HTTP_406_NOT_ACCEPTABLE)
 
+    def test_drift_bottle_own_get(self):
+        self._create_user()
+        self._login()
+        response = self.client.get('/api/driftbottle/pools/', format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
     def test_drift_bottle_get(self):
         self._create_user()
         self._login()
         response = self.client.get('/api/driftbottle/', format='json')
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
         user = User.objects.get(username='pocaetestuser')
-        #set admin
+        # set admin
         user.is_staff = True
         user.save()
         response = self.client.get('/api/driftbottle/', format='json')

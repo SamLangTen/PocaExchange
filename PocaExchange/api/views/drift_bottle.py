@@ -93,6 +93,9 @@ class DriftBottlePoolDetail(APIView):
             return bottle_sets[0]
 
     def get(self, request, bottle_id, format=None):
+        '''
+            Get detail of bottle if user has permission to access
+        '''
         bottle = self._get_bottle(bottle_id)
         if not bottle: 
             return Response(status=status.HTTP_404_NOT_FOUND)
@@ -102,6 +105,9 @@ class DriftBottlePoolDetail(APIView):
         return Response(data=serializer.data, status=status.HTTP_200_OK)
 
     def put(self, request, bottle_id, format=None):
+        '''
+            Set bottle state if user has permission to access
+        '''
         bottle = self._get_bottle(bottle_id)
         if not bottle:
             return Response(status=status.HTTP_404_NOT_FOUND)

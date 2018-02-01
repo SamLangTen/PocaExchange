@@ -40,7 +40,7 @@ class DriftBottlePoolList(APIView):
             bottle.request_name = request.user
             bottle.throw_time = datetime.datetime.now()
             bottle.save()
-            return Response(status=status.HTTP_201_CREATED)
+            return Response(data={"bottle_id": bottle.bottle_id}, status=status.HTTP_201_CREATED)
         else:
             return Response(status=status.HTTP_406_NOT_ACCEPTABLE)
 
@@ -48,11 +48,12 @@ class DriftBottlePoolList(APIView):
         '''
             Drift Bottle Dragged
         '''
-        bottles_accepted = DriftBottle.objects.exclude(postcard_pair=None)
+        bottles_unown = DriftBottle.objects.exclude(request_name=request.user)
+        bottles_accepted = bottles_unown.exclude(postcard_pair=None)
         bottles_unreceived = bottles_accepted.filter(
             postcard_pair=PostcardPair.objects.filter(receiver=request.user).exclude(state=3))
         if not bottles_unreceived.exists():
-            bottles_unaccepted = DriftBottle.objects.filter(postcard_pair=None)
+            bottles_unaccepted = bottles_unown.filter(postcard_pair=None)
             bottle_index = random.randint(0, bottles_unaccepted.count()-1)
             bottle_selected = bottles_unaccepted[bottle_index]
             pc_pair = PostcardPair(pair_id=uuid.uuid4())
@@ -62,7 +63,7 @@ class DriftBottlePoolList(APIView):
             pc_pair.save()
             bottle_selected.postcard_pair = pc_pair
             bottle_selected.save()
-            return Response(status=status.HTTP_201_CREATED)
+            return Response(data={"bottle_id": bottle_selected.bottle_id, "postcard_pair_id": pc_pair.pair_id}, status=status.HTTP_201_CREATED)
         else:
             return Response(status=status.HTTP_406_NOT_ACCEPTABLE)
 

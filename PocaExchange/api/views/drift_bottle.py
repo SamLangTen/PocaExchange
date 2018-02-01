@@ -27,6 +27,14 @@ class DriftBottlePoolList(APIView):
     authentication_classes = (SessionAuthentication, BasicAuthentication)
     permission_classes = (IsAuthenticated,)
 
+    def get(self, request, format=None):
+        bottles_own = DriftBottle.objects.filter(request_name=request.user)
+        bottles_myaccepted = DriftBottle.objects.filter(
+            postcard_pair=PostcardPair.objects.filter(receiver=request.user))
+        bottles_accessable = bottles_myaccepted.union(bottles_own)
+        serializer = DriftBottleSerializer(bottles_accessable, many=True)
+        return Response(data=serializer.data, status=status.HTTP_200_OK)
+
     def post(self, request, format=None):
         '''
             Drift Bottle Thrown
@@ -66,9 +74,3 @@ class DriftBottlePoolList(APIView):
             return Response(data={"bottle_id": bottle_selected.bottle_id, "postcard_pair_id": pc_pair.pair_id}, status=status.HTTP_201_CREATED)
         else:
             return Response(status=status.HTTP_406_NOT_ACCEPTABLE)
-
-
-class DriftBottleDetail(APIView):
-
-    def post(self, request, format=None):
-        pass

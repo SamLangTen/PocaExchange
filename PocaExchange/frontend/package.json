@@ -16,6 +16,9 @@
   "license": "Apache-2.0",
   "devDependencies": {
     "css-loader": "^0.28.9",
+    "element-ui": "^2.1.0",
+    "file-loader": "^1.1.6",
+    "style-loader": "^0.20.1",
     "ts-loader": "^3.5.0",
     "typescript": "^2.7.1",
     "vue": "^2.5.13",
@@ -24,5 +27,8 @@
     "vue-property-decorator": "^6.0.0",
     "vue-template-compiler": "^2.5.13",
     "webpack": "^3.10.0"
+  },
+  "dependencies": {
+    "element-ui": "^2.1.0"
   }
 }

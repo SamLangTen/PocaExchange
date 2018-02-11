@@ -1,8 +1,8 @@
 <template>
   <el-header>
     <el-row>
-      <el-col :span="12"><h1><span class="el-icon-message"/>Pocae</h1></el-col>    
-      <el-col :offset="3" :span="9">
+      <el-col :md="12" :sm="9" :xs="6"><h1><span class="el-icon-message"/>Pocae</h1></el-col>    
+      <el-col :offset="3" :md="9" :sm="12" :xs="15">
         <el-button type="primary">Login</el-button> 
         <el-dropdown>
           <el-button type="primary">

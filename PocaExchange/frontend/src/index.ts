@@ -10,8 +10,7 @@ let v = new Vue({
     el: "#app",
     template: `
     <el-container>
-        <el-header><TopBarComponent/></el-header>
-        <el-main>Main</el-main>
+        <TopBarComponent/>
     </el-container>
     `,
     components: {

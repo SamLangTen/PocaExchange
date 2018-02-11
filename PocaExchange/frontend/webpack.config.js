@@ -4,7 +4,8 @@ var webpack = require('webpack');
 module.exports = {
   entry: {
     app: './src/index.ts',
-    vendor: ['vue', 'element-ui','element-ui/lib/theme-chalk/index.css']
+    vendor: ['vue', 'element-ui', 'element-ui/lib/theme-chalk/index.css'],
+    style: './src/style.css'
   },
   plugins: [
     new webpack.optimize.CommonsChunkPlugin({ name: "vendor" })

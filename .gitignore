@@ -7,3 +7,4 @@
 
 #Django Migrations Cache
 /PocaExchange/api/migrations
+PocaExchange/start.bat

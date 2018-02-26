@@ -3,7 +3,8 @@
     <el-row>
       <el-col :md="12" :sm="9" :xs="6"><h1><span class="el-icon-message"/>Pocae</h1></el-col>    
       <el-col :offset="3" :md="9" :sm="12" :xs="15">
-        <el-button type="primary">Login</el-button> 
+        <el-button type="primary" v-if="!IsLogin">Login {{isLogin}}</el-button> 
+        <el-button type="primary" v-if="IsLogin">Logout</el-button> 
         <el-dropdown>
           <el-button type="primary">
             Postcard<i class="el-icon-arrow-down el-icon--right"></i>
@@ -21,8 +22,34 @@
 </template>
 
 <script lang="ts">
+import axios from "axios";
 import Vue from "vue";
-export default Vue.extend({});
+
+export default Vue.extend({
+  data() {
+    return {
+      IsLogin: false
+    };
+  },
+  mounted() {
+    this.getLogin();
+  },
+  methods: {
+    getLogin(): void {
+      axios.get("/api/account/").then(response => {
+        this.IsLogin = response.status == 200 ? true : false;
+        console.log(this.IsLogin);
+      });
+    }
+  },
+  computed: {
+    isLogin(): boolean {
+      let loginFlag = false;
+
+      return loginFlag;
+    }
+  }
+});
 </script>
 <style>
 .el-row > .el-col > h1 {
@@ -47,13 +74,13 @@ export default Vue.extend({});
   margin: 0px;
   background-color: #409eff;
 }
-@media (min-width: 1000px ){
+@media (min-width: 1000px) {
   .el-header > .el-row {
     width: 50%;
     margin: auto;
   }
 }
-@media (max-width: 1500px ) {
+@media (max-width: 1500px) {
   .el-header > .el-row {
     width: 90%;
     margin: auto;

@@ -3,8 +3,8 @@
     <el-row>
       <el-col :md="12" :sm="9" :xs="6"><h1><span class="el-icon-message"/>Pocae</h1></el-col>    
       <el-col :offset="3" :md="9" :sm="12" :xs="15">
-        <el-button type="primary" v-if="!IsLogin">Login {{isLogin}}</el-button> 
-        <el-button type="primary" v-if="IsLogin">Logout</el-button> 
+        <el-button type="primary" v-if="!IsLogin">Login</el-button> 
+        <el-button type="primary" v-on:click="logout" v-if="IsLogin">Logout</el-button> 
         <el-dropdown>
           <el-button type="primary">
             Postcard<i class="el-icon-arrow-down el-icon--right"></i>
@@ -25,6 +25,9 @@
 import axios from "axios";
 import Vue from "vue";
 
+axios.defaults.xsrfCookieName = 'csrftoken';
+axios.defaults.xsrfHeaderName = 'X-CSRFToken';
+
 export default Vue.extend({
   data() {
     return {
@@ -35,10 +38,17 @@ export default Vue.extend({
     this.getLogin();
   },
   methods: {
+    logout(): void {
+      axios
+        .post("/api/account/logout/")
+        .then(response => {
+          if (response.status == 204) this.getLogin();
+          location.reload();
+        });
+    },
     getLogin(): void {
       axios.get("/api/account/").then(response => {
         this.IsLogin = response.status == 200 ? true : false;
-        console.log(this.IsLogin);
       });
     }
   },
